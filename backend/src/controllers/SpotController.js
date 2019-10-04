@@ -3,10 +3,8 @@ const User = require("../models/User");
 module.exports = {
   async index(req, res) {
     const { tech } = req.query;
-
     const spots = await Spot.find({ techs: tech });
     return res.json(spots);
-
   },
 
   async store(req, res) {
@@ -19,7 +17,6 @@ module.exports = {
     if (!user) {
       return res.status(400).json({ error: "User does not exists" });
     }
-
     const spot = await Spot.create({
       user: user_id,
       thumbnail: filename,
@@ -27,6 +24,7 @@ module.exports = {
       techs: techs.split(",").map(tech => tech.trim()),
       price
     });
+    console.log("SPOT", spot);
     return res.json(spot);
   }
 };
